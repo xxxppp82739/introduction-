@@ -1,1 +1,148 @@
-# introduction-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Angelo Terminal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    background: black;
+    font-family: "Courier New", monospace;
+    color: #00ff00;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  header {
+    padding: 50px 20px;
+  }
+
+  .card {
+    border: 1px solid rgba(0,255,0,0.2);
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    background: rgba(0, 255, 0, 0.05);
+    box-shadow: 0 0 20px rgba(0,255,0,0.3);
+  }
+
+  .neon {
+    text-shadow:
+      0 0 5px #00ff00,
+      0 0 10px #00ff00,
+      0 0 20px #00ff00,
+      0 0 40px #00ff00;
+  }
+
+  input {
+    padding: 10px;
+    border: 1px solid #00ff00;
+    background: black;
+    color: #00ff00;
+    width: 60%;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: 1px solid #00ff00;
+    background: black;
+    color: #00ff00;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #00ff00;
+    color: black;
+  }
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<header class="neon">
+  <h1>> HELLO I AM ANGELO</h1>
+  <p>> I'M 15</p>
+  <p>> I'M FROM THE PHILIPPINES</p>
+</header>
+
+<div class="card neon">
+  <h2>> ABOUT</h2>
+  <p>I build ideas, games, and digital experiences.</p>
+</div>
+
+<div class="card neon">
+  <h2>> AUTHENTICATION</h2>
+  <p>Enter identity:</p>
+  <input id="nameInput" placeholder="type name...">
+  <br>
+  <button onclick="checkName()">EXECUTE</button>
+  <p id="secret"></p>
+</div>
+
+<script>
+  // MATRIX RAIN
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const fontSize = 16;
+  const columns = canvas.width / fontSize;
+
+  const drops = [];
+
+  for (let x = 0; x < columns; x++) {
+    drops[x] = 1;
+  }
+
+  function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ff00";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters.charAt(Math.floor(Math.random() * letters.length));
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw, 33);
+
+  // AUTH SYSTEM
+  function checkName() {
+    let name = document.getElementById("nameInput").value.toLowerCase();
+    let output = document.getElementById("secret");
+
+    if (name === "angelo") {
+      output.innerText = "ACCESS GRANTED... WELCOME BACK, ANGELO.";
+    } else {
+      output.innerText = "ACCESS DENIED.";
+    }
+  }
+</script>
+
+</body>
+</html># introduction-
